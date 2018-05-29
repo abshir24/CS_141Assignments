@@ -1,10 +1,89 @@
 import java.util.*;
+import java.io.*;
 public class ArrPractice {
 
-	public static void main(String[] arg)
+	public static void main (String[] arg)throws FileNotFoundException
 	{
+		File file = new File("src/section.txt");
 		
-		System.out.println(multCounter(669260267));
+		Scanner reader = new Scanner(file);
+		
+		sections(reader);
+		
+		
+	}
+	
+	public static void printScores(Scanner reader)
+	{
+		int[] arr = new int[101];
+		while(reader.hasNextInt())
+		{
+			arr[reader.nextInt()]++;
+		}
+		
+		for(int i = 0;i<arr.length;i++)
+		{
+			System.out.printf("%d:",i);
+			
+			for(int j=0;j<arr[i];j++)
+			{
+				System.out.print("*");
+			}
+			
+			System.out.println();
+		}
+	}
+	
+	public static void sections(Scanner reader)
+	{
+		int[] points = new int[5];
+		
+		double[]grades = new double[5];
+		
+		int count = 0,student=0;
+		
+		while(reader.hasNextLine())
+		{
+			count++;
+			
+			String line = reader.nextLine();
+			
+			for(int i = 0;i<line.length();i++)
+			{
+				if(student > 4) student = 0;
+				
+				if( i == 36) System.out.println(line.charAt(i));
+				
+				if(line.charAt(i) == 'y') points[student]+=3;
+				
+				else if (line.charAt(i) == 'n') points[student]+=2;
+				
+				if (points[student] >= 20) points[student] = 20;
+				
+				
+				student++;
+			}
+			
+			
+			
+			for(int i = 0;i<points.length;i++)
+			{
+				grades[i] = ((double)points[i]/20)*100;
+			}
+			
+			System.out.printf("Section %d: \n",count);
+			
+			System.out.printf("Student points %s: \n",Arrays.toString(points));
+			
+			System.out.printf("Student grades %s: \n",Arrays.toString(grades));
+			
+			grades = new double[5];
+			
+			points = new int[5];
+			
+			
+		}
+		
 	}
 	
 	
@@ -61,7 +140,6 @@ public class ArrPractice {
 		{
 			if(count < arr2.length)
 			{
-				System.out.println("First");
 				
 				returnArr[i] = arr2[count]; 
 				
